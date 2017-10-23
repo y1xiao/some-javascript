@@ -1,0 +1,41 @@
+关于闭包
+循环使用匿名函数示例
+for (var i = 0; i < json.length; i++) {
+                        var jsonObj = json[i];
+                        var pi = document.getElementsByClassName("everyclass")[i];
+                        var picn1 = pi.getElementsByTagName("div")[0].getElementsByTagName("p")[0].innerText;
+                        var picn2 = pi.getElementsByTagName("div")[1].getElementsByTagName("p")[0].innerText;
+                        var picn3 = pi.getElementsByTagName("div")[2].getElementsByTagName("p")[0].innerText;
+                        var picn4 = pi.getElementsByTagName("div")[3].getElementsByTagName("p")[0].innerText;
+                        var picn5 = pi.getElementsByTagName("div")[4].getElementsByTagName("p")[0].innerText;
+                        var picn6 = jsonObj.courseId;
+                        if (picn1 != jsonObj.courseName || picn2 != jsonObj.teacherName || picn3 != jsonObj.location || picn4 != jsonObj.courseSeq || picn5 != jsonObj.classes) {
+                            alert(picn1 != jsonObj.courseName || picn2 != jsonObj.teacherName || picn3 != jsonObj.location || picn4 != jsonObj.courseSeq || picn5 != jsonObj.classes);
+                            (function() {
+                                var pic1 = picn1;
+                                var pic2 = picn2;
+                                var pic3 = picn3;
+                                var pic4 = picn4;
+                                var pic5 = picn5;
+                                var pic6 = picn6;
+                                $.ajax({
+                                    type: "POST",
+                                    url: "http://localhost:8080/guide/addCourse.action",
+                                    data: {
+                                        courseName: pic1,
+                                        teacherName: pic2,
+                                        location: pic3,
+                                        courseSeq: pic4,
+                                        classes: pic5,
+                                        courseId: pic6
+                                    },
+                                    success: function(data) {
+                                        alert(pic1 + "修改成功");
+                                    },
+                                    error: function(jqXHR) {
+                                        alert(pic1 + "修改失败");
+                                    },
+                                });
+                            })()
+                        }
+                    }
